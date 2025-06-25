@@ -11,7 +11,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _searchVisible = false;
-  bool _showCategories = true;
   String _selectedCategory = 'News';
   bool _isLoading = true;
 
@@ -156,57 +155,6 @@ class _HomePageState extends State<HomePage> {
               slivers: [
                 SliverList(
                   delegate: SliverChildListDelegate([
-                    Padding(
-                      padding: const EdgeInsets.all(10.0), // Reduced padding
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center, // Center the buttons
-                        children: <Widget>[
-                          ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                _showCategories = true;
-                                _selectedCategory = 'News';
-                              });
-                            },
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                              ),
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                              ),
-                            ),
-                            child: Text('Live TV', style: TextStyle(fontSize: 16)),
-                          ),
-                          SizedBox(width: 10), // Add a small gap between buttons
-                          ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                _showCategories = false;
-                                _selectedCategory = '';
-                              });
-                            },
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                              ),
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                              ),
-                            ),
-                            child: Text('Radio', style: TextStyle(fontSize: 16)),
-                          ),
-                        ],
-                      ),
-                    ),
                     SizedBox(height: 20),
                     CarouselSlider(
                       options: CarouselOptions(
@@ -233,25 +181,24 @@ class _HomePageState extends State<HomePage> {
                         );
                       }).toList(),
                     ),
-                    if (_showCategories) // Show categories if _showCategories is true
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: Wrap(
-                          alignment: WrapAlignment.center,
-                          children: <Widget>[
-                            ...CategoryItems.categoryItems.entries.map((entry) {
-                              return CategoryButton(
-                                text: entry.key,
-                                onPressed: () {
-                                  setState(() {
-                                    _selectedCategory = entry.key;
-                                  });
-                                },
-                              );
-                            }).toList(),
-                          ],
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: <Widget>[
+                          ...CategoryItems.categoryItems.entries.map((entry) {
+                            return CategoryButton(
+                              text: entry.key,
+                              onPressed: () {
+                                setState(() {
+                                  _selectedCategory = entry.key;
+                                });
+                              },
+                            );
+                          }).toList(),
+                        ],
                       ),
+                    ),
                   ]),
                 ),
                 if (_selectedCategory.isNotEmpty)
@@ -265,8 +212,7 @@ class _HomePageState extends State<HomePage> {
                             imagePath: item['image']!,
                             text: item['text']!,
                             videoUrl: item['videoUrl']!,
-                             type: item['type'] ?? 'youtube',
-
+                            type: item['type'] ?? 'youtube',
                           );
                         },
                         childCount: CategoryItems.categoryItems[_selectedCategory]!.length,
@@ -276,15 +222,6 @@ class _HomePageState extends State<HomePage> {
                         mainAxisSpacing: 10.0,
                         crossAxisSpacing: 10.0,
                         childAspectRatio: 1.0, // Adjust aspect ratio as needed
-                      ),
-                    ),
-                  ),
-                if (!_showCategories && _selectedCategory.isEmpty) // Show message if no category is selected
-                  SliverFillRemaining(
-                    child: Center(
-                      child: Text(
-                        'Our team is working with the radio.',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
                   ),
