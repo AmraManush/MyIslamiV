@@ -10,8 +10,9 @@ class CategoryItems {
   };
 
   static Future<void> fetchData() async {
-    final url =
-        Uri.https('raw.githubusercontent.com', '/arifulatwork/XtreamLive/main/video_urls.json');
+    final url = Uri.https(
+      'gist.githubusercontent.com',
+      '/arifulatwork/22a771aa1e054bca05dd0b620ac2612e/raw/tv.json',);
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
