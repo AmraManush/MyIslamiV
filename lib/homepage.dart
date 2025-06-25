@@ -265,6 +265,8 @@ class _HomePageState extends State<HomePage> {
                             imagePath: item['image']!,
                             text: item['text']!,
                             videoUrl: item['videoUrl']!,
+                             type: item['type'] ?? 'youtube',
+
                           );
                         },
                         childCount: CategoryItems.categoryItems[_selectedCategory]!.length,
