@@ -19,7 +19,7 @@ class CategoryItems {
         Map<String, dynamic> data = json.decode(response.body);
         data.forEach((key, value) {
           List<Map<String, String>> items = [];
-          value.forEach((item) {
+          (value as List<dynamic>).forEach((item) {
             items.add({
               'image': item['image'],
               'text': item['text'],
